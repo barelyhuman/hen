@@ -37,6 +37,9 @@ const App = (props) => {
           <r-cell>
             <h1 align="center">Hen</h1>
             <p align="center">UI Component Playground</p>
+            <p align="center">
+              <a href="https://github.com/barelyhuman/hen">Documentation</a>
+            </p>
           </r-cell>
           <r-cell></r-cell>
           <r-cell span="row"></r-cell>
