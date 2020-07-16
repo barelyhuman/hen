@@ -5,8 +5,6 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
     "parcel-bundler": "^1.12.4"
   },
   "scripts": {
@@ -14,9 +12,7 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "@babel/generator": "^7.10.5",
-    "@babel/parser": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/standalone": "^7.10.5",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
