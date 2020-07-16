@@ -8,8 +8,16 @@ export default (props) => {
   const [code, setCode] = useState(props.code);
 
   const handleValueChange = (code) => {
-    setCode(code);
-    props.onCodeChange(code);
+    let _value = code;
+    if (!code) {
+      _value = `
+      <>
+      
+      </>
+      `;
+    }
+    setCode(_value);
+    props.onCodeChange(_value);
   };
 
   return (
