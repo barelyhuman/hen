@@ -1,13 +1,14 @@
 export default `
-const Button = ({ children, ...props }) => {
+
+const Input = ({ children, ...props }) => {
   return (
     <>
-      <button {...props}>{children}</button>
+      <input {...props} />
       <style jsx>{\`
-        button {
-          background: #000;
-          color: #fff;
-          border: 2px solid #000;
+        input {
+          background: #fff;
+          color: #000;
+          border: 2px solid rgba(12,12,13,0.1);
           border-radius: 4px;
           height: 32px;
           padding: 0 16px;
@@ -17,9 +18,9 @@ const Button = ({ children, ...props }) => {
           transition: all 0.2s ease;
         }
 
-        button:hover {
-          background: #fff;
-          color: #000;
+        input:hover,input:focus {
+          border-color:#000;
+          outline:#000;
         }
       \`}</style>
     </>
@@ -27,9 +28,11 @@ const Button = ({ children, ...props }) => {
 };
 
 const Snippet = () => {
+  const [value,setValue]=React.useState("");
   return <>
-    <Button> Hen </Button>
+    <Input  placeholder="hello" value={value} onChange={e=>setValue(e.target.value)}/> 
   </>
 }
+
 
 `;

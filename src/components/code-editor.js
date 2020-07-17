@@ -5,6 +5,7 @@ import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import prettier from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
+import debounce from "lodash.debounce";
 
 import Button from "./button";
 import Spacer from "./spacer";
@@ -12,10 +13,12 @@ import Spacer from "./spacer";
 export default (props) => {
   const [code, setCode] = useState(props.code);
 
+  const debouncedTrigger = debounce(props.onCodeChange, 1000);
+
   const handleValueChange = (code) => {
     let _value = code;
     setCode(_value);
-    props.onCodeChange(_value);
+    debouncedTrigger(_value);
   };
 
   const formatCode = () => {

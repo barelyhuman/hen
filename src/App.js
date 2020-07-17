@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import CodeEditor from "./components/code-editor";
-window.React = React;
 const babel = require("@babel/standalone");
 import defaultCode from "./default-code";
 import Spacer from "./components/spacer";
+window.React = React;
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
@@ -22,7 +22,6 @@ const App = (props) => {
     }
   } catch (err) {
     transformed = "";
-    console.log("transform error");
   }
 
   let Parsed = () => <></>;
@@ -30,14 +29,43 @@ const App = (props) => {
   try {
     if (transformed) {
       Parsed = new Function(transformed);
-      if (!Parsed()) {
-        Parsed = () => <></>;
-      }
     }
   } catch (err) {
     Parsed = () => <></>;
-    console.log("Component creation error");
   }
+
+  const iframeCode = `
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+      const Parsed  = ${Parsed};
+
+      const Index = () => {
+        return <>
+          <Parsed />
+        </>
+      }
+
+      ReactDOM.render(
+        <Index />,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
+
+    `;
 
   return (
     <>
@@ -68,7 +96,7 @@ const App = (props) => {
         </r-cell>
         <r-cell>
           <Spacer y={5} />
-          <Parsed />
+          <iframe srcDoc={iframeCode}></iframe>
         </r-cell>
       </r-grid>
       <style jsx>
