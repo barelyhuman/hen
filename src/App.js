@@ -51,6 +51,10 @@ const App = (props) => {
               Documentation
             </a>
           </p>
+          <p align="center" className="note">
+            <strong>Note: </strong> The `Snippet` function needs to exist for
+            the preview to work.
+          </p>
         </r-cell>
         <r-cell></r-cell>
         <r-cell span="row"></r-cell>
@@ -67,6 +71,21 @@ const App = (props) => {
           <Parsed />
         </r-cell>
       </r-grid>
+      <style jsx>
+        {`
+          .note {
+            background: #eaeaea;
+            color: #000;
+            padding: 8px 16px;
+            width: auto;
+            height: 32px;
+            border-radius: 4px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+          }
+        `}
+      </style>
     </>
   );
 };
