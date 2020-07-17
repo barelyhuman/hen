@@ -9,13 +9,6 @@ export default (props) => {
 
   const handleValueChange = (code) => {
     let _value = code;
-    if (!code) {
-      _value = `
-      <>
-      
-      </>
-      `;
-    }
     setCode(_value);
     props.onCodeChange(_value);
   };

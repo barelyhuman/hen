@@ -1,33 +1,44 @@
 export default `
-<>
-      <button className="button">
-            Hello
-      </button>
-      <style jsx>
-        {\`
-          .button {
-            background: #000;
-            color: #fff;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            height: 32px;
-            padding-left: 16px;
-            padding-right: 16px;
-            font-size: 14px;
-            width: auto;
-            outline: #000;
-            border: 2px solid  #000;
-            border-radius:  4px;
-            transition: 250ms all ease;
-          }
+const linkMessage = "Hen";
 
-          .button:hover,
-          .button:focus {
-            background: #fff;
-            color: #000;
-          }
-        \`}
-      </style>
+const Link = () => (
+  <>
+    <a>{linkMessage}</a>
+    <style jsx>{\`
+      a {
+        text-decoration: none;
+      }
+    \`}</style>
   </>
-  `;
+);
+
+const Snippet = () => {
+  return (
+    <>
+      <button>
+        <Link />
+      </button>
+      <style jsx>{\`
+        button {
+          background: #000;
+          color: #fff;
+          border: 2px solid #000;
+          border-radius: 4px;
+          height: 32px;
+          padding: 0 16px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.2s ease;
+        }
+
+        button:hover {
+          background: #fff;
+          color: #000;
+        }
+      \`}</style>
+    </>
+  );
+};
+
+`;
