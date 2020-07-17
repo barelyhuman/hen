@@ -7,6 +7,8 @@ window.React = React;
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
+  const [Parsed, setParsed] = useState("()=><></>");
+  const [template, setTemplate] = useState("");
   const iframeRef = useRef(null);
   let transformed;
 
@@ -18,42 +20,16 @@ const App = (props) => {
     });
   }, [iframeRef]);
 
-  function resizeIFrameToFitContent() {
-    if (iframeRef && iframeRef.current) {
-      iframeRef.current.width =
-        parseInt(iframeRef.current.contentWindow.document.body.scrollWidth) +
-        100;
-      iframeRef.current.height =
-        parseInt(iframeRef.current.contentWindow.document.body.scrollHeight) +
-        100;
-    }
-  }
+  useEffect(() => {
+    parseComponentCode(component);
+  }, [component]);
 
-  try {
-    if (component) {
-      transformed = babel.transform(component, {
-        sourceType: "unambiguous",
-        plugins: ["transform-react-jsx"],
-      }).code;
+  useEffect(() => {
+    updateTemplate();
+  }, [Parsed]);
 
-      transformed = transformed.replace(/\/\*\#\w+\*\//g, "").trim();
-      transformed += "\n return Snippet();";
-    }
-  } catch (err) {
-    transformed = "";
-  }
-
-  let Parsed = () => <></>;
-
-  try {
-    if (transformed) {
-      Parsed = new Function(transformed);
-    }
-  } catch (err) {
-    Parsed = () => <></>;
-  }
-
-  const iframeCode = `
+  function updateTemplate() {
+    const iframeCode = `
     <!DOCTYPE html>
 <html>
   <head>
@@ -66,24 +42,69 @@ const App = (props) => {
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      const Parsed  = ${Parsed};
+      let _react = {};
+      _react.default = React;
+      
+      ${Parsed}
+      
 
       const Index = () => {
         parent.postMessage("loaded-iframe");
-        return <>
-          <Parsed key="iframe-loader"/>
-        </>
-      }
+        return (
+          <>
+            <Snippet />
+          </>
+        );
+      };
 
-      ReactDOM.render(
-        <Index key="iframe-loader"/>,
-        document.getElementById('root')
-      );
+      ReactDOM.render(<Index />, document.getElementById("root"));
     </script>
   </body>
 </html>
-
     `;
+    setTemplate(iframeCode);
+  }
+
+  function parseComponentCode() {
+    try {
+      if (component) {
+        transformed = babel.transform(component, {
+          sourceType: "unambiguous",
+          plugins: ["transform-react-jsx"],
+        }).code;
+
+        transformed = transformed.replace(/\/\*\#\w+\*\//g, "").trim();
+      }
+      if (transformed) {
+        setParsed(transformed);
+      }
+    } catch (err) {
+      transformed = "";
+      setParsed("()=>{return <></>}");
+    }
+  }
+
+  function resizeIFrameToFitContent() {
+    if (iframeRef && iframeRef.current) {
+      if (
+        iframeRef.current.width <
+        parseInt(iframeRef.current.contentWindow.document.body.scrollWidth)
+      ) {
+        iframeRef.current.width =
+          parseInt(iframeRef.current.contentWindow.document.body.scrollWidth) +
+          100;
+      }
+
+      if (
+        iframeRef.current.height <
+        parseInt(iframeRef.current.contentWindow.document.body.scrollHeight)
+      ) {
+        iframeRef.current.height =
+          parseInt(iframeRef.current.contentWindow.document.body.scrollHeight) +
+          100;
+      }
+    }
+  }
 
   return (
     <>
@@ -114,7 +135,7 @@ const App = (props) => {
         </r-cell>
         <r-cell>
           <Spacer y={5} />
-          <iframe ref={iframeRef} srcDoc={iframeCode}></iframe>
+          <iframe ref={iframeRef} srcDoc={template}></iframe>
         </r-cell>
       </r-grid>
       <style jsx>
