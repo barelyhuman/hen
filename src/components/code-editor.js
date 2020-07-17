@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
@@ -6,7 +6,7 @@ import "prismjs/components/prism-javascript";
 import prettier from "prettier/standalone";
 import parserBabel from "prettier/parser-babel";
 import debounce from "lodash.debounce";
-import Mousetrap from "mousetrap";
+import useMousetrap from "react-hook-mousetrap";
 
 import Button from "./button";
 import Spacer from "./spacer";
@@ -14,15 +14,11 @@ import Spacer from "./spacer";
 export default (props) => {
   const [code, setCode] = useState(props.code);
 
-  useEffect(() => {
-    setupKeyboard();
-  }, []);
+  const formatCallback = useCallback(() => {
+    formatCode(code);
+  }, [code]);
 
-  function setupKeyboard() {
-    Mousetrap.bind(["ctrl+shift+f"], function () {
-      formatCode();
-    });
-  }
+  useMousetrap(["ctrl+shift+f"], formatCallback);
 
   const debouncedTrigger = debounce(props.onCodeChange, 1000);
 
@@ -32,8 +28,8 @@ export default (props) => {
     debouncedTrigger(_value);
   };
 
-  const formatCode = () => {
-    let _value = prettier.format(code, {
+  const formatCode = (toFormatCode) => {
+    let _value = prettier.format(toFormatCode, {
       parser: "babel",
       plugins: [parserBabel],
     });
