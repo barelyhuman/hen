@@ -3,6 +3,7 @@ import CodeEditor from "./components/code-editor";
 window.React = React;
 const babel = require("@babel/standalone");
 import defaultCode from "./default-code";
+import Spacer from "./components/spacer";
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
@@ -29,7 +30,9 @@ const App = (props) => {
   try {
     if (transformed) {
       Parsed = new Function(transformed);
-      Parsed();
+      if (!Parsed()) {
+        Parsed = () => <></>;
+      }
     }
   } catch (err) {
     Parsed = () => <></>;
@@ -60,6 +63,7 @@ const App = (props) => {
           />
         </r-cell>
         <r-cell>
+          <Spacer y={5} />
           <Parsed />
         </r-cell>
       </r-grid>
