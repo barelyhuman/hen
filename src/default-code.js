@@ -1,23 +1,8 @@
 export default `
-const linkMessage = "Hen";
-
-const Link = () => (
-  <>
-    <a>{linkMessage}</a>
-    <style jsx>{\`
-      a {
-        text-decoration: none;
-      }
-    \`}</style>
-  </>
-);
-
-const Snippet = () => {
+const Button = ({ children, ...props }) => {
   return (
     <>
-      <button>
-        <Link />
-      </button>
+      <button {...props}>{children}</button>
       <style jsx>{\`
         button {
           background: #000;
@@ -40,5 +25,11 @@ const Snippet = () => {
     </>
   );
 };
+
+const Snippet = () => {
+  return <>
+    <Button> Hen </Button>
+  </>
+}
 
 `;
