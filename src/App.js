@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CodeEditor from "./components/code-editor";
 const babel = require("@babel/standalone");
 import defaultCode from "./default-code";
@@ -7,8 +7,27 @@ window.React = React;
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
-
+  const iframeRef = useRef(null);
   let transformed;
+
+  useEffect(() => {
+    window.addEventListener("message", function (message) {
+      if (message.data === "loaded-iframe") {
+        resizeIFrameToFitContent();
+      }
+    });
+  }, [iframeRef]);
+
+  function resizeIFrameToFitContent() {
+    if (iframeRef && iframeRef.current) {
+      iframeRef.current.width =
+        parseInt(iframeRef.current.contentWindow.document.body.scrollWidth) +
+        100;
+      iframeRef.current.height =
+        parseInt(iframeRef.current.contentWindow.document.body.scrollHeight) +
+        100;
+    }
+  }
 
   try {
     if (component) {
@@ -47,20 +66,19 @@ const App = (props) => {
   <body>
     <div id="root"></div>
     <script type="text/babel">
-
       const Parsed  = ${Parsed};
 
       const Index = () => {
+        parent.postMessage("loaded-iframe");
         return <>
-          <Parsed />
+          <Parsed key="iframe-loader"/>
         </>
       }
 
       ReactDOM.render(
-        <Index />,
+        <Index key="iframe-loader"/>,
         document.getElementById('root')
       );
-
     </script>
   </body>
 </html>
@@ -96,7 +114,7 @@ const App = (props) => {
         </r-cell>
         <r-cell>
           <Spacer y={5} />
-          <iframe srcDoc={iframeCode}></iframe>
+          <iframe ref={iframeRef} srcDoc={iframeCode}></iframe>
         </r-cell>
       </r-grid>
       <style jsx>

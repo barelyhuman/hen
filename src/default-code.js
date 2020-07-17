@@ -1,5 +1,4 @@
 export default `
-
 const Input = ({ children, ...props }) => {
   return (
     <>
@@ -28,11 +27,16 @@ const Input = ({ children, ...props }) => {
 };
 
 const Snippet = () => {
-  const [value,setValue]=React.useState("");
-  return <>
-    <Input  placeholder="hello" value={value} onChange={e=>setValue(e.target.value)}/> 
-  </>
-}
-
+  const [value, setValue] = React.useState("");
+  return (
+    <>
+      <Input
+        placeholder="hello"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    </>
+  );
+};
 
 `;
