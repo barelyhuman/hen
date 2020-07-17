@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CodeEditor from "./components/code-editor";
-const babel = require("@babel/standalone");
-import defaultCode from "./default-code";
 import Spacer from "./components/spacer";
+import defaultCode from "./default-code";
+const babel = require("@babel/standalone");
 window.React = React;
 
 const App = (props) => {
