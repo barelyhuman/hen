@@ -7,5 +7,6 @@ Well I have moments where I'd like to try out new design ideas and stuff and set
 
 ## Features
 
-- jsx
+- React components
 - styled-jsx
+- prettier (formatting)
