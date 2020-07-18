@@ -40,7 +40,7 @@ export default (props) => {
 
   return (
     <>
-      <Button onClick={formatCode}>Format (Ctrl+Shift+F)</Button>
+      <Button onClick={(e) => formatCode(code)}>Format (Ctrl+Shift+F)</Button>
       <Spacer y={1} />
       {/* <Editor
         value={code}
@@ -54,8 +54,6 @@ export default (props) => {
       <div>
         <textarea
           className="hen-code-editor"
-          name=""
-          id=""
           value={code}
           onChange={handleValueChange}
         ></textarea>
@@ -73,6 +71,7 @@ export default (props) => {
           .hen-code-editor {
             min-height: 200px;
             width: 100%;
+            outline: #000;
             resize: none;
             border: 2px solid rgba(12, 12, 13, 0.1) !important;
             border-radius: 4px;
