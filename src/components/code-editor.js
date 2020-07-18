@@ -23,8 +23,8 @@ export default (props) => {
 
   const debouncedTrigger = debounce(props.onCodeChange, 1000);
 
-  const handleValueChange = (code) => {
-    let _value = code;
+  const handleValueChange = (e) => {
+    let _value = e.target.value;
     setCode(_value);
     debouncedTrigger(_value);
   };
@@ -42,7 +42,7 @@ export default (props) => {
     <>
       <Button onClick={formatCode}>Format (Ctrl+Shift+F)</Button>
       <Spacer y={1} />
-      <Editor
+      {/* <Editor
         value={code}
         onValueChange={handleValueChange}
         highlight={(code) => highlight(code, languages.js)}
@@ -50,7 +50,19 @@ export default (props) => {
         className="hen-code-wrapper"
         textareaClassName="hen-code-editor"
         preClassName="hen-code-editor-pre"
-      />
+      /> */}
+      <div>
+        <textarea
+          className="hen-code-editor"
+          name=""
+          id=""
+          value={code}
+          onChange={handleValueChange}
+        ></textarea>
+        <pre
+          dangerouslySetInnerHTML={{ __html: highlight(code, languages.js) }}
+        ></pre>
+      </div>
       <style jsx global>
         {`
           .hen-code-wrapper {
@@ -58,14 +70,16 @@ export default (props) => {
             line-height: 28px;
           }
 
-          .hen-code-editor + .hen-code-editor-pre {
+          .hen-code-editor {
             min-height: 200px;
+            width: 100%;
+            resize: none;
             border: 2px solid rgba(12, 12, 13, 0.1) !important;
             border-radius: 4px;
           }
 
-          .hen-code-editor:focus + .hen-code-editor-pre,
-          .hen-code-editor:hover + .hen-code-editor-pre {
+          .hen-code-editor:focus,
+          .hen-code-editor:hover {
             border-color: #000 !important;
           }
         `}
