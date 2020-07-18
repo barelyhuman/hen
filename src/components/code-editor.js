@@ -40,7 +40,7 @@ export default (props) => {
 
   return (
     <>
-      <Button onClick={formatCode}>Format (Ctrl+Shift+F)</Button>
+      <Button onClick={(e) => formatCode(code)}>Format (Ctrl+Shift+F)</Button>
       <Spacer y={1} />
       <Editor
         value={code}
