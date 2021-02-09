@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import CodeEditor from "./components/code-editor";
-import Spacer from "./components/spacer";
-import defaultCode from "./default-code";
-const babel = require("@babel/standalone");
+import React, { useEffect, useRef, useState } from 'react';
+import CodeEditor from './components/code-editor';
+import Spacer from './components/spacer';
+import defaultCode from './default-code';
+const babel = require('@babel/standalone');
 window.React = React;
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
-  const [Parsed, setParsed] = useState("()=><></>");
-  const [template, setTemplate] = useState("");
+  const [Parsed, setParsed] = useState('()=><></>');
+  const [template, setTemplate] = useState('');
   const iframeRef = useRef(null);
   let transformed;
 
   useEffect(() => {
-    window.addEventListener("message", function (message) {
-      if (message.data === "loaded-iframe") {
+    window.addEventListener('message', function (message) {
+      if (message.data === 'loaded-iframe') {
         resizeIFrameToFitContent();
       }
     });
@@ -69,18 +69,18 @@ const App = (props) => {
     try {
       if (component) {
         transformed = babel.transform(component, {
-          sourceType: "unambiguous",
-          plugins: ["transform-react-jsx"],
+          sourceType: 'unambiguous',
+          plugins: ['transform-react-jsx'],
         }).code;
 
-        transformed = transformed.replace(/\/\*\#\w+\*\//g, "").trim();
+        transformed = transformed.replace(/\/\*\#\w+\*\//g, '').trim();
       }
       if (transformed) {
         setParsed(transformed);
       }
     } catch (err) {
-      transformed = "";
-      setParsed("()=>{return <></>}");
+      transformed = '';
+      setParsed('()=>{return <></>}');
     }
   }
 
@@ -135,7 +135,11 @@ const App = (props) => {
         </r-cell>
         <r-cell>
           <Spacer y={5} />
-          <iframe ref={iframeRef} srcDoc={template}></iframe>
+          <iframe
+            style={{ minWidth: '100%' }}
+            ref={iframeRef}
+            srcDoc={template}
+          ></iframe>
         </r-cell>
       </r-grid>
       <style jsx>
