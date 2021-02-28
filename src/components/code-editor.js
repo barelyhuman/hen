@@ -1,25 +1,30 @@
-import debounce from "lodash.debounce";
-import parserBabel from "prettier/parser-babel";
-import prettier from "prettier/standalone";
+import debounce from 'lodash.debounce';
+import parserBabel from 'prettier/parser-babel';
+import prettier from 'prettier/standalone';
 
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
 
-import React, { useCallback, useState } from "react";
-import useMousetrap from "react-hook-mousetrap";
-import Editor from "react-simple-code-editor";
-import Button from "./button";
-import Spacer from "./spacer";
+import React, { useCallback, useState } from 'react';
+import useMousetrap from 'react-hook-mousetrap';
+import Editor from 'react-simple-code-editor';
+import Button from './button';
+import Spacer from './spacer';
+
+import { findNodesFromCode } from '../lib/findNodesFromCode';
+import { isSnippetNode } from '../lib/isSnippetNode';
+import { createZip } from '../lib/createZip';
 
 export default (props) => {
   const [code, setCode] = useState(props.code);
+  const [experimentalExport, setExperimentalExport] = useState(false);
 
   const formatCallback = useCallback(() => {
     formatCode(code);
   }, [code]);
 
-  useMousetrap(["ctrl+shift+f"], formatCallback);
+  useMousetrap(['ctrl+shift+f'], formatCallback);
 
   const debouncedTrigger = debounce(props.onCodeChange, 1000);
 
@@ -31,16 +36,55 @@ export default (props) => {
 
   const formatCode = (toFormatCode) => {
     let _value = prettier.format(toFormatCode, {
-      parser: "babel",
+      parser: 'babel',
       plugins: [parserBabel],
     });
     setCode(_value);
     props.onCodeChange(_value);
   };
 
+  const exportCode = () => {
+    const files = [];
+    if (experimentalExport) {
+      const nodes = findNodesFromCode(code);
+      const validNodes = nodes.filter((item) => !isSnippetNode(item));
+
+      validNodes.forEach((item) => {
+        files.push({
+          name: String(item.name).toLowerCase() + '.js',
+          content: item.code,
+        });
+      });
+    } else {
+      const file = { name: 'hen.js', content: code };
+      files.push(file);
+    }
+
+    createZip(files);
+  };
+
+
+
   return (
     <>
-      <Button onClick={(e) => formatCode(code)}>Format (Ctrl+Shift+F)</Button>
+      <div>
+        <Button onClick={(e) => formatCode(code)}>Format (Ctrl+Shift+F)</Button>
+        <Spacer x={1} inline></Spacer>
+        <Button secondary onClick={(e) => exportCode(code)}>
+          Export Code
+        </Button>
+        <Spacer y={2}></Spacer>
+        <div>
+          <label htmlFor="">
+            <input
+              type="checkbox"
+              value={experimentalExport}
+              onChange={(e) => setExperimentalExport(e.target.value)}
+            />
+            Enable experimental split export?
+          </label>
+        </div>
+      </div>
       <Spacer y={1} />
       <Editor
         value={code}

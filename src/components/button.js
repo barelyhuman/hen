@@ -1,9 +1,13 @@
-import React from "react";
+import React from 'react';
+import cn from 'classnames';
 
-const Button = ({ children, ...props }) => {
+const Button = ({ children, secondary, ...props }) => {
+  const classList = cn({ secondary });
   return (
     <>
-      <button {...props}>{children}</button>
+      <button className={classList} {...props}>
+        {children}
+      </button>
       <style jsx>{`
         button {
           background: #000;
@@ -15,12 +19,25 @@ const Button = ({ children, ...props }) => {
           display: inline-flex;
           justify-content: center;
           align-items: center;
+          font-weight:bold;
           transition: all 0.2s ease;
+          outline:transparent;
         }
 
         button:hover {
           background: #fff;
           color: #000;
+          cursor:pointer;
+        }
+
+        button.secondary {
+          color: #4c566a;
+          background: transparent;
+          border:0px;
+        }
+
+        button.secondary:hover {
+          background: #eceff4;
         }
       `}</style>
     </>

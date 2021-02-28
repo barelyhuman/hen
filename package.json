@@ -13,16 +13,23 @@
   },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.10.4",
-    "@babel/standalone": "^7.10.5",
+    "@babel/standalone": "^7.13.8",
+    "acorn": "^8.0.5",
+    "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
+    "classnames": "^2.2.6",
+    "escodegen": "^2.0.0",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.6.0",
     "lodash.debounce": "^4.0.8",
     "mousetrap": "^1.6.5",
+    "object-path": "^0.11.5",
     "prettier": "^2.0.5",
     "prismjs": "^1.21.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-mousetrap": "^2.0.3",
     "react-simple-code-editor": "^0.11.0",
-    "styled-jsx": "^3.3.0"
+    "styled-jsx": "^3.4.4"
   },
   "browserslist": [
     "last 3 and_chr versions",

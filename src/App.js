@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import CodeEditor from './components/code-editor';
 import Spacer from './components/spacer';
 import defaultCode from './default-code';
+import debounce from 'lodash.debounce';
 const babel = require('@babel/standalone');
 window.React = React;
 
 const App = (props) => {
   const [component, setComponent] = useState(defaultCode);
   const [Parsed, setParsed] = useState('()=><></>');
+  const [error, setError] = useState('');
   const [template, setTemplate] = useState('');
   const iframeRef = useRef(null);
   let transformed;
@@ -17,16 +19,23 @@ const App = (props) => {
       if (message.data === 'loaded-iframe') {
         resizeIFrameToFitContent();
       }
+
+      if (message.data.type === 'error') {
+        setError(message.data.data.message);
+      }
     });
   }, [iframeRef]);
 
   useEffect(() => {
+    setError('');
     parseComponentCode(component);
   }, [component]);
 
   useEffect(() => {
     updateTemplate();
   }, [Parsed]);
+
+  const debouncedSetComponentCode = debounce(setComponent, 500);
 
   function updateTemplate() {
     const iframeCode = `
@@ -42,22 +51,31 @@ const App = (props) => {
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      let _react = {};
-      _react.default = React;
-      
-      ${Parsed}
-      
 
-      const Index = () => {
-        parent.postMessage("loaded-iframe");
-        return (
-          <>
-            <Snippet />
-          </>
-        );
-      };
+      try{
+          let _react = {};
+        _react.default = React;
+        
+        ${Parsed}
+        
 
-      ReactDOM.render(<Index />, document.getElementById("root"));
+        const Index = () => {
+          parent.postMessage("loaded-iframe");
+          return (
+            <>
+              <Snippet />
+            </>
+          );
+        };
+
+        ReactDOM.render(<Index />, document.getElementById("root"));
+      }
+      catch(err){
+        parent.postMessage({
+          type:'error',
+          data:err
+        });
+      }
     </script>
   </body>
 </html>
@@ -118,23 +136,47 @@ const App = (props) => {
               Documentation
             </a>
           </p>
-          <p align="center" className="note">
-            <strong>Note: </strong> The `Snippet` function needs to exist for
-            the preview to work.
-          </p>
+          <div className="flex flex-center flex-col">
+            <p align="center" className="note">
+              <strong>Note: </strong> The `Snippet` function needs to exist for
+              the preview to work.
+            </p>
+
+            <details className="note w-250-px">
+              <summary>
+                <strong>Note: </strong> Enable experimental split export?
+              </summary>
+              <Spacer y={1}/>
+              <p>
+                This will try to split the added components into different files
+                and export them accordingly. This may or may not work since it
+                requires creating an AST to find the nodes and the conversion
+                back to the written code needs to be worked on. This is added
+                into this version just to let users know that its a part of the
+                future scope.
+              </p>
+            </details>
+          </div>
         </r-cell>
         <r-cell></r-cell>
         <r-cell span="row"></r-cell>
       </r-grid>
       <r-grid columns="2">
+        <r-cell span="row">
+          {error ? (
+            <p align="center" className="w-100 note error">
+              {error}
+            </p>
+          ) : null}
+        </r-cell>
         <r-cell>
           <CodeEditor
             code={component}
-            onCodeChange={(code) => setComponent(code)}
+            onCodeChange={(code) => debouncedSetComponentCode(code)}
           />
         </r-cell>
         <r-cell>
-          <Spacer y={5} />
+          <Spacer y={9} />
           <iframe
             style={{ minWidth: '100%' }}
             ref={iframeRef}
@@ -149,11 +191,37 @@ const App = (props) => {
             color: #000;
             padding: 8px 16px;
             width: auto;
-            height: 32px;
+            min-height: 32px;
             border-radius: 4px;
             display: inline-flex;
             justify-content: center;
             align-items: center;
+          }
+
+          .note.error {
+            background: #bf616a;
+            color: #fff;
+          }
+
+          .w-100 {
+            width: 100%;
+          }
+
+          .w-250-px{
+            width:250px;
+          }
+
+          .flex {
+            display: flex;
+          }
+
+          .flex-center {
+            justify-content: center;
+            align-items: center;
+          }
+
+          .flex-col{
+            flex-direction:column;
           }
         `}
       </style>
