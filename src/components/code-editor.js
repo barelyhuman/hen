@@ -91,6 +91,9 @@ export default (props) => {
         onValueChange={handleValueChange}
         highlight={(code) => highlight(code, languages.js)}
         padding={10}
+        style={{
+          fontFamily: "Hack, monospace"
+        }}
         className="hen-code-wrapper"
         textareaClassName="hen-code-editor"
         preClassName="hen-code-editor-pre"
@@ -98,7 +101,7 @@ export default (props) => {
       <style jsx global>
         {`
           .hen-code-wrapper {
-            font-size: 16px !important;
+            font-size: 14px !important;
             line-height: 28px;
           }
 

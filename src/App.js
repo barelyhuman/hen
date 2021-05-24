@@ -56,7 +56,7 @@ const App = (props) => {
           let _react = {};
         _react.default = React;
         
-        ${Parsed}
+        const Snippet = ${Parsed}
         
 
         const Index = () => {
@@ -137,11 +137,6 @@ const App = (props) => {
             </a>
           </p>
           <div className="flex flex-center flex-col">
-            <p align="center" className="note">
-              <strong>Note: </strong> The `Snippet` function needs to exist for
-              the preview to work.
-            </p>
-
             <details className="note w-250-px">
               <summary>
                 <strong>Note: </strong> Enable experimental split export?
