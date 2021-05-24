@@ -1,8 +1,8 @@
-import React from 'react';
-import cn from 'classnames';
+import React from 'react'
+import cn from 'classnames'
 
 const Button = ({ children, secondary, ...props }) => {
-  const classList = cn({ secondary });
+  const classList = cn({ secondary })
   return (
     <>
       <button className={classList} {...props}>
@@ -39,9 +39,10 @@ const Button = ({ children, secondary, ...props }) => {
         button.secondary:hover {
           background: #eceff4;
         }
-      `}</style>
+      `}
+      </style>
     </>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

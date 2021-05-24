@@ -1,83 +1,81 @@
-import debounce from 'lodash.debounce';
-import parserBabel from 'prettier/parser-babel';
-import prettier from 'prettier/standalone';
+import debounce from 'lodash.debounce'
+import parserBabel from 'prettier/parser-babel'
+import prettier from 'prettier/standalone'
 
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
+import { highlight, languages } from 'prismjs/components/prism-core'
+import 'prismjs/components/prism-clike'
+import 'prismjs/components/prism-javascript'
 
-import React, { useCallback, useState } from 'react';
-import useMousetrap from 'react-hook-mousetrap';
-import Editor from 'react-simple-code-editor';
-import Button from './button';
-import Spacer from './spacer';
+import React, { useCallback, useState } from 'react'
+import useMousetrap from 'react-hook-mousetrap'
+import Editor from 'react-simple-code-editor'
+import Button from './button'
+import Spacer from './spacer'
 
-import { findNodesFromCode } from '../lib/findNodesFromCode';
-import { isSnippetNode } from '../lib/isSnippetNode';
-import { createZip } from '../lib/createZip';
+import { findNodesFromCode } from '../lib/findNodesFromCode'
+import { isSnippetNode } from '../lib/isSnippetNode'
+import { createZip } from '../lib/createZip'
 
 export default (props) => {
-  const [code, setCode] = useState(props.code);
-  const [experimentalExport, setExperimentalExport] = useState(false);
+  const [code, setCode] = useState(props.code)
+  const [experimentalExport, setExperimentalExport] = useState(false)
 
   const formatCallback = useCallback(() => {
-    formatCode(code);
-  }, [code]);
+    formatCode(code)
+  }, [code])
 
-  useMousetrap(['ctrl+shift+f'], formatCallback);
+  useMousetrap(['ctrl+shift+f'], formatCallback)
 
-  const debouncedTrigger = debounce(props.onCodeChange, 1000);
+  const debouncedTrigger = debounce(props.onCodeChange, 1000)
 
   const handleValueChange = (code) => {
-    let _value = code;
-    setCode(_value);
-    debouncedTrigger(_value);
-  };
+    const _value = code
+    setCode(_value)
+    debouncedTrigger(_value)
+  }
 
   const formatCode = (toFormatCode) => {
-    let _value = prettier.format(toFormatCode, {
+    const _value = prettier.format(toFormatCode, {
       parser: 'babel',
-      plugins: [parserBabel],
-    });
-    setCode(_value);
-    props.onCodeChange(_value);
-  };
+      plugins: [parserBabel]
+    })
+    setCode(_value)
+    props.onCodeChange(_value)
+  }
 
   const exportCode = () => {
-    const files = [];
+    const files = []
     if (experimentalExport) {
-      const nodes = findNodesFromCode(code);
-      const validNodes = nodes.filter((item) => !isSnippetNode(item));
+      const nodes = findNodesFromCode(code)
+      const validNodes = nodes.filter((item) => !isSnippetNode(item))
 
       validNodes.forEach((item) => {
         files.push({
           name: String(item.name).toLowerCase() + '.js',
-          content: item.code,
-        });
-      });
+          content: item.code
+        })
+      })
     } else {
-      const file = { name: 'hen.js', content: code };
-      files.push(file);
+      const file = { name: 'hen.js', content: code }
+      files.push(file)
     }
 
-    createZip(files);
-  };
-
-
+    createZip(files)
+  }
 
   return (
     <>
       <div>
         <Button onClick={(e) => formatCode(code)}>Format (Ctrl+Shift+F)</Button>
-        <Spacer x={1} inline></Spacer>
+        <Spacer x={1} inline />
         <Button secondary onClick={(e) => exportCode(code)}>
           Export Code
         </Button>
-        <Spacer y={2}></Spacer>
+        <Spacer y={2} />
         <div>
-          <label htmlFor="">
+          <label htmlFor=''>
             <input
-              type="checkbox"
+              type='checkbox'
               value={experimentalExport}
               onChange={(e) => setExperimentalExport(e.target.value)}
             />
@@ -92,17 +90,17 @@ export default (props) => {
         highlight={(code) => highlight(code, languages.js)}
         padding={10}
         style={{
-          fontFamily: "Hack, monospace"
+          fontFamily: 'Hack, monospace',
+          lineHeight: '30px',
+          fontSize: '16px'
         }}
-        className="hen-code-wrapper"
-        textareaClassName="hen-code-editor"
-        preClassName="hen-code-editor-pre"
+        className='hen-code-wrapper'
+        textareaClassName='hen-code-editor'
+        preClassName='hen-code-editor-pre'
       />
       <style jsx global>
         {`
           .hen-code-wrapper {
-            font-size: 14px !important;
-            line-height: 28px;
           }
 
           .hen-code-editor + .hen-code-editor-pre {
@@ -118,5 +116,5 @@ export default (props) => {
         `}
       </style>
     </>
-  );
-};
+  )
+}
