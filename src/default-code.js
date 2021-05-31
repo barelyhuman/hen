@@ -8,9 +8,10 @@ export default `() => {
     size = 12,
     ...props
   }) {
+    const classNames = cn("toggle-button",className);
     return (
       <>
-        <div className="toggle-button">
+        <div className={classNames}>
           <input onChange={() => {}} type="checkbox" />
           <span></span>
         </div>

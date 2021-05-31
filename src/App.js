@@ -47,6 +47,7 @@ const App = (props) => {
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/classnames@latest/index.js"></script>
   </head>
   <body>
     <div id="root"></div>
@@ -55,6 +56,7 @@ const App = (props) => {
       try{
           let _react = {};
         _react.default = React;
+        let cn = classNames;
         
         const Snippet = ${Parsed}
         
