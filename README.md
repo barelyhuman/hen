@@ -10,6 +10,7 @@ Well I have moments where I'd like to try out new design ideas and stuff and set
 - React components
 - styled-jsx
 - prettier (formatting)
+- classNames (available as `cn` in the playground)
 
 
 <a href="https://www.buymeacoffee.com/barelyhuman"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=barelyhuman&button_colour=000000&font_colour=ffffff&font_family=Inter&outline_colour=ffffff&coffee_colour=FFDD00"></a>
