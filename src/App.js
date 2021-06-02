@@ -3,6 +3,7 @@ import CodeEditor from './components/code-editor'
 import Spacer from './components/spacer'
 import defaultCode from './default-code'
 import debounce from 'lodash.debounce'
+import { iframeTemplateCode } from './template/iframe'
 const babel = require('@babel/standalone')
 window.React = React
 
@@ -38,51 +39,7 @@ const App = (props) => {
   const debouncedSetComponentCode = debounce(setComponent, 500)
 
   function updateTemplate () {
-    const iframeCode = `
-    <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World</title>
-    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/classnames@latest/index.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="text/babel">
-
-      try{
-          let _react = {};
-        _react.default = React;
-        let cn = classNames;
-        
-        const Snippet = ${Parsed}
-        
-
-        const Index = () => {
-          parent.postMessage("loaded-iframe");
-          return (
-            <>
-              <Snippet />
-            </>
-          );
-        };
-
-        ReactDOM.render(<Index />, document.getElementById("root"));
-      }
-      catch(err){
-        parent.postMessage({
-          type:'error',
-          data:err
-        });
-      }
-    </script>
-  </body>
-</html>
-    `
-    setTemplate(iframeCode)
+    setTemplate(iframeTemplateCode(Parsed))
   }
 
   function parseComponentCode () {
@@ -132,7 +89,10 @@ const App = (props) => {
         <r-cell />
         <r-cell>
           <h1 align='center'>Hen</h1>
-          <p align='center'>UI Component Playground</p>
+          <p align='center' className='p-0 m-0'>UI Component Playground</p>
+          <p align='center' className='p-0'>
+            Powered by <a href='https://apex.reaper.im'>Apex Editor</a>
+          </p>
           <p align='center'>
             <a href='https://github.com/barelyhuman/hen#readme'>
               Documentation
@@ -206,8 +166,8 @@ const App = (props) => {
             width: 100%;
           }
 
-          .w-250-px{
-            width:250px;
+          .w-250-px {
+            width: 250px;
           }
 
           .flex {
@@ -219,8 +179,8 @@ const App = (props) => {
             align-items: center;
           }
 
-          .flex-col{
-            flex-direction:column;
+          .flex-col {
+            flex-direction: column;
           }
         `}
       </style>

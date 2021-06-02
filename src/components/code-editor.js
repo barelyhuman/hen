@@ -1,90 +1,87 @@
-import debounce from "lodash.debounce";
-import parserBabel from "prettier/parser-babel";
-import parserPCSS from "prettier/parser-postcss";
-import prettier from "prettier/standalone";
+import debounce from 'lodash.debounce'
+import parserBabel from 'prettier/parser-babel'
+import parserPCSS from 'prettier/parser-postcss'
+import prettier from 'prettier/standalone'
 
-import hljs from "highlight.js";
-import Apex from "@barelyreaper/apex";
-
-// import "highlight.js/styles/github.css";
+import hljs from 'highlight.js'
+import Apex from '@barelyreaper/apex'
 
 import React, {
   useCallback,
   useEffect,
-  useReducer,
   useRef,
-  useState,
-} from "react";
-import useMousetrap from "react-hook-mousetrap";
-import Button from "./button";
-import Spacer from "./spacer";
+  useState
+} from 'react'
+import useMousetrap from 'react-hook-mousetrap'
+import Button from './button'
+import Spacer from './spacer'
 
-import { findNodesFromCode } from "../lib/findNodesFromCode";
-import { isSnippetNode } from "../lib/isSnippetNode";
-import { createZip } from "../lib/createZip";
+import { findNodesFromCode } from '../lib/findNodesFromCode'
+import { isSnippetNode } from '../lib/isSnippetNode'
+import { createZip } from '../lib/createZip'
 
 export default (props) => {
-  const [code, setCode] = useState(props.code);
-  const [experimentalExport, setExperimentalExport] = useState(false);
+  const [code, setCode] = useState(props.code)
+  const [experimentalExport, setExperimentalExport] = useState(false)
 
-  const apexInstance = useRef();
+  const apexInstance = useRef()
 
   useEffect(() => {
     apexInstance.current = new Apex({
-      el: document.getElementById("code-editor"),
+      el: document.getElementById('code-editor'),
       tabSpace: 2,
-      font: "Hack,monospace",
-      fontSize: "14",
-      placeholder: "Enter Code here",
+      font: 'Hack,monospace',
+      fontSize: '14',
+      placeholder: 'Enter Code here',
       value: code,
-      className: "hen-code-wrapper",
+      className: 'hen-code-wrapper',
       onChange: (_code) => {
-        setCode(_code);
-        debouncedTrigger(_code);
+        setCode(_code)
+        debouncedTrigger(_code)
       },
-      highlight: (_code) => hljs.highlightAuto(_code).value,
-    });
-  }, []);
+      highlight: (_code) => hljs.highlightAuto(_code).value
+    })
+  }, [])
 
   const formatCallback = useCallback(() => {
-    formatCode(code);
-  }, [code]);
+    formatCode(code)
+  }, [code])
 
-  useMousetrap(["ctrl+shift+f"], formatCallback);
+  useMousetrap(['ctrl+shift+f'], formatCallback)
 
-  const debouncedTrigger = debounce(props.onCodeChange, 1000);
+  const debouncedTrigger = debounce(props.onCodeChange, 1000)
 
   const formatCode = (toFormatCode) => {
     const _value = prettier.format(toFormatCode, {
-      parser: "babel",
-      plugins: [parserBabel,parserPCSS],
-    });
+      parser: 'babel',
+      plugins: [parserBabel, parserPCSS]
+    })
     if (apexInstance.current) {
-      apexInstance.current.updateCode(_value);
+      apexInstance.current.updateCode(_value)
     }
-    setCode(_value);
-    props.onCodeChange(_value);
-  };
+    setCode(_value)
+    props.onCodeChange(_value)
+  }
 
   const exportCode = () => {
-    const files = [];
+    const files = []
     if (experimentalExport) {
-      const nodes = findNodesFromCode(code);
-      const validNodes = nodes.filter((item) => !isSnippetNode(item));
+      const nodes = findNodesFromCode(code)
+      const validNodes = nodes.filter((item) => !isSnippetNode(item))
 
       validNodes.forEach((item) => {
         files.push({
-          name: String(item.name).toLowerCase() + ".js",
-          content: item.code,
-        });
-      });
+          name: String(item.name).toLowerCase() + '.js',
+          content: item.code
+        })
+      })
     } else {
-      const file = { name: "hen.js", content: code };
-      files.push(file);
+      const file = { name: 'hen.js', content: code }
+      files.push(file)
     }
 
-    createZip(files);
-  };
+    createZip(files)
+  }
 
   return (
     <>
@@ -96,9 +93,9 @@ export default (props) => {
         </Button>
         <Spacer y={2} />
         <div>
-          <label htmlFor="">
+          <label htmlFor=''>
             <input
-              type="checkbox"
+              type='checkbox'
               value={experimentalExport}
               onChange={(e) => setExperimentalExport(e.target.value)}
             />
@@ -107,7 +104,7 @@ export default (props) => {
         </div>
       </div>
       <Spacer y={1} />
-      <div id="code-editor"></div>
+      <div id='code-editor' />
       <style jsx global>
         {`
           .hen-code-wrapper {
@@ -133,5 +130,5 @@ export default (props) => {
         `}
       </style>
     </>
-  );
-};
+  )
+}
