@@ -6,7 +6,7 @@ import prettier from "prettier/standalone";
 import hljs from "highlight.js";
 import Apex from "@barelyreaper/apex";
 
-import "highlight.js/styles/github.css";
+// import "highlight.js/styles/github.css";
 
 import React, {
   useCallback,
@@ -40,6 +40,7 @@ export default (props) => {
       className: "hen-code-wrapper",
       onChange: (_code) => {
         setCode(_code);
+        debouncedTrigger(_code);
       },
       highlight: (_code) => hljs.highlightAuto(_code).value,
     });
@@ -52,12 +53,6 @@ export default (props) => {
   useMousetrap(["ctrl+shift+f"], formatCallback);
 
   const debouncedTrigger = debounce(props.onCodeChange, 1000);
-
-  const handleValueChange = (code) => {
-    const _value = code;
-    setCode(_value);
-    debouncedTrigger(_value);
-  };
 
   const formatCode = (toFormatCode) => {
     const _value = prettier.format(toFormatCode, {
