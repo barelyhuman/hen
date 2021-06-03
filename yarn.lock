@@ -866,10 +866,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@barelyreaper/apex@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@barelyreaper/apex/-/apex-0.0.4.tgz#58a6abb36455a5465356e434d1fab1a725837319"
-  integrity sha512-Uw1P3fPupH6Jg774L01jRm+KSbIu7R6/YL2AnbeWUTVz2na2WqOVDz0rhWM42WhWGxdb6CxAEIFUsPGLNGMKCA==
+"@barelyreaper/apex@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@barelyreaper/apex/-/apex-0.0.6.tgz#6a05b551e5c56eccdb202d81473b228661d3c6bc"
+  integrity sha512-mG2Jhh+ftD5coahUb7WMVM00tYxJ8kgi71YBd2+4L5qzHiJEBuZmgHB7QbRXas1mr8ehFkZQKHVTwTxCX1K07A==
 
 "@iarna/toml@^2.2.0":
   version "2.2.5"
