@@ -40,5 +40,12 @@
     "last 3 opera versions",
     "last 3 ios_saf versions",
     "last 3 safari versions"
-  ]
+  ],
+  "standard": {
+    "global": [
+      "onmessage",
+      "postMessage",
+      "Worker"
+    ]
+  }
 }

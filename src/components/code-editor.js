@@ -3,15 +3,9 @@ import parserBabel from 'prettier/parser-babel'
 import parserPCSS from 'prettier/parser-postcss'
 import prettier from 'prettier/standalone'
 
-import hljs from 'highlight.js'
 import Apex from '@barelyreaper/apex'
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useMousetrap from 'react-hook-mousetrap'
 import Button from './button'
 import Spacer from './spacer'
@@ -19,6 +13,9 @@ import Spacer from './spacer'
 import { findNodesFromCode } from '../lib/findNodesFromCode'
 import { isSnippetNode } from '../lib/isSnippetNode'
 import { createZip } from '../lib/createZip'
+
+const highlightWorker =
+  window.Worker && new Worker('../workers/highlighter.js')
 
 export default (props) => {
   const [code, setCode] = useState(props.code)
@@ -38,10 +35,13 @@ export default (props) => {
       onChange: (_code) => {
         setCode(_code)
         debouncedTrigger(_code)
-      },
-      highlight: (_code) => hljs.highlightAuto(_code).value
+      }
     })
   }, [])
+
+  useEffect(() => {
+    hightlightWithWorker(code, apexInstance)
+  }, [code, apexInstance])
 
   const formatCallback = useCallback(() => {
     formatCode(code)
@@ -131,4 +131,14 @@ export default (props) => {
       </style>
     </>
   )
+}
+
+function hightlightWithWorker (code, apexInstance) {
+  if (highlightWorker) {
+    highlightWorker.postMessage(String(code))
+    highlightWorker.onmessage = function (newCode) {
+      apexInstance.current.config.el.querySelector('pre').innerHTML =
+        newCode.data
+    }
+  }
 }
