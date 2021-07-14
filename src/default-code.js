@@ -152,7 +152,7 @@ export default `() => {
 
   return (
     <>
-      <Input placeholder="Password Input" />
+      <Input placeholder="Password Input" type="password"/>
       <Spacer y={16} x={8} />
       <Input placeholder="Text Input" />
       <Spacer y={16} x={8} />
@@ -161,4 +161,4 @@ export default `() => {
   );
 };
 
-`
+`;
