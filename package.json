@@ -1,51 +1,39 @@
 {
-  "name": "@barelyhuman/hen",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "parcel-bundler": "^1.12.4"
-  },
+  "name": "hen-next",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "fix": "npx standard --fix"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.10.4",
-    "@babel/standalone": "^7.13.8",
-    "acorn": "^8.0.5",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/standalone": "^7.14.7",
+    "acorn": "^8.4.1",
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
-    "classnames": "^2.2.6",
-    "codejar": "^3.4.0",
+    "codejar": "^3.5.0",
     "escodegen": "^2.0.0",
-    "file-saver": "^2.0.5",
-    "highlight.js": "^11.0.1",
-    "jszip": "^3.6.0",
+    "highlight.js": "^11.1.0",
     "lodash.debounce": "^4.0.8",
-    "mousetrap": "^1.6.5",
+    "next": "11.0.1",
+    "nprogress": "^0.2.0",
     "object-path": "^0.11.5",
-    "prettier": "^2.3.0",
-    "react": "^16.13.1",
-    "react-codejar": "^1.1.0",
-    "react-dom": "^16.13.1",
-    "react-hook-mousetrap": "^2.0.3",
-    "react-simple-code-editor": "^0.11.0",
-    "styled-jsx": "^3.4.4"
+    "open-color": "^1.8.0",
+    "prettier": "^2.3.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-simple-code-editor": "^0.11.0"
   },
-  "browserslist": [
-    "last 3 and_chr versions",
-    "last 3 chrome versions",
-    "last 3 opera versions",
-    "last 3 ios_saf versions",
-    "last 3 safari versions"
-  ],
-  "standard": {
-    "global": [
-      "onmessage",
-      "postMessage",
-      "Worker"
-    ]
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1",
+    "next-transpile-modules": "^8.0.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^6.7.0"
   }
 }

@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020-2021 Reaper <ahoy@barelyhuman.dev> (https://reaper.im)
+Copyright (c) 2021-present [Reaper](https://reaper.im) <ahoy@barelyhuman.dev>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

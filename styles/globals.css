@@ -1,0 +1,305 @@
+@import "open-color/open-color.css";
+@import url(//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css);
+
+/* Resets */
+
+:root {
+  --white: #eee;
+  --black: #222;
+  --bg: #fff;
+  --bg-light: #dee2e6;
+  --bg-lighter: #e9ecef;
+  --fg: #212529;
+  --fg-light: #343a40;
+  --fg-lighter: #495057;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  --error: #ff3e3e;
+  --blur: rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Nanum Gothic", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  font-size: 16px;
+  line-height: 28.8px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+li {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+footer {
+  min-height: 32px;
+  padding: 16px;
+}
+
+/* Classes */
+
+.container-boundaries {
+  padding: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.container {
+  min-height: 85vh;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.h-50 {
+  height: 50%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.m-0 {
+  margin: 0px;
+}
+
+.m-1 {
+  margin: 8px;
+}
+
+.m-2 {
+  margin: 16px;
+}
+
+.mt-1 {
+  margin-top: 8px;
+}
+
+.mt-2 {
+  margin-top: 16px;
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+.mr-1 {
+  margin-right: 8px;
+}
+
+.mr-2 {
+  margin-right: 16px;
+}
+
+.ml-1 {
+  margin-left: 8px;
+}
+
+.ml-2 {
+  margin-left: 16px;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.p-0 {
+  padding: 0px;
+}
+
+.p-1 {
+  padding: 8px;
+}
+
+.p-2 {
+  padding: 16px;
+}
+
+.pb-1 {
+  padding-bottom: 8px;
+}
+
+.pb-2 {
+  padding-bottom: 16px;
+}
+
+.f-small {
+  font-size: 14px;
+}
+
+.f-normal {
+  font-size: 16px;
+}
+
+.f-large {
+  font-size: 36px;
+}
+
+.fw-normal {
+  font-weight: 400;
+}
+
+.fw-bold {
+  font-weight: 700;
+}
+
+.bg-default {
+  background-color: var(--bg) !important;
+}
+
+.bg-light {
+  background-color: var(--bg-light) !important;
+}
+
+.bg-lighter {
+  background-color: var(--bg-lighter) !important;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.f-right {
+  float: right;
+}
+
+.f-left {
+  float: left;
+}
+
+.rounded-sm {
+  border-radius: 4px;
+}
+
+.rounded-md {
+  border-radius: 8px;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.text-teritiary {
+  color: var(--fg-lighter);
+}
+
+.text-secondary {
+  color: var(--fg-light);
+}
+
+.text-primary {
+  color: var(--fg);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.text-danger {
+  color: var(--error);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.h-100-vh {
+  height: 100vh;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-danger {
+  background-color: var(--error);
+}
+
+.text-white {
+  color: white;
+}
+
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon svg {
+  height: 16px;
+  width: 16px;
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
