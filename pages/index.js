@@ -40,9 +40,9 @@ export default function Home() {
       <main className="p-2">
         <div className="flex">
           <div>
-            <h3 className="m-0 p-0">Hen@next</h3>
+            <h3 className="m-0 p-0">Hen</h3>
             <p className="m-0 p-0">
-              <small>Server Powered ESM React Playground</small>
+              <small>ESM Based React Component Playground</small>
             </p>
             <p className="m-0 p-0 text-secondary">
               <small>
