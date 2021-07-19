@@ -32,7 +32,9 @@ export function EditorToolbar({ code, onChange, ...props }) {
   return (
     <>
       <Spacer y={1} />
-      <Button onClick={debouncedFormat}>Format Code</Button>
+      <Button secondary onClick={debouncedFormat}>
+        Format Code
+      </Button>
       <Spacer x={1} inline />
       <Button secondary onClick={insertExampleCode}>
         View Example

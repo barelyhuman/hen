@@ -27,17 +27,18 @@ export const Button = ({ children, className, secondary, ...props }) => {
           outline: #000;
           color: #000;
           background: #fff;
+          cursor: pointer;
         }
 
         button.secondary {
           background: var(--bg-lighter);
           color: var(--fg);
-          border: 0px;
+          border: 1px solid var(--bg-lighter);
         }
 
         button.secondary:hover {
-          background: var(--bg-light);
-          color: var(--fg);
+          border: 1px solid var(--bg-light);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
         }
       `}</style>
     </>
