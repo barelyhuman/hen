@@ -1,7 +1,13 @@
-export const Button = ({ children, ...props }) => {
+import cn from "clsx";
+
+export const Button = ({ children, className, secondary, ...props }) => {
+  const classList = cn(className, { secondary });
+
   return (
     <>
-      <button {...props}>{children}</button>
+      <button className={classList} {...props}>
+        {children}
+      </button>
       <style jsx>{`
         button {
           background: #000;
@@ -21,6 +27,17 @@ export const Button = ({ children, ...props }) => {
           outline: #000;
           color: #000;
           background: #fff;
+        }
+
+        button.secondary {
+          background: var(--bg-lighter);
+          color: var(--fg);
+          border: 0px;
+        }
+
+        button.secondary:hover {
+          background: var(--bg-light);
+          color: var(--fg);
         }
       `}</style>
     </>

@@ -3,7 +3,7 @@ import { IFrameContainer } from "containers/iframe-container";
 import { useAsyncEffect } from "hooks/use-async-effect";
 import { fetcher } from "lib/fetcher";
 import { useState } from "react";
-import defaultCode from "templates/default-code";
+import defaultCode from "templates/empty-code";
 import debounce from "lodash.debounce";
 
 export default function Home() {

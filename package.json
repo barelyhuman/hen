@@ -15,6 +15,7 @@
     "@babel/standalone": "^7.14.7",
     "acorn": "^8.4.1",
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
+    "clsx": "^1.1.1",
     "codejar": "^3.5.0",
     "escodegen": "^2.0.0",
     "highlight.js": "^11.1.0",
