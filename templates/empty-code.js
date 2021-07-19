@@ -3,6 +3,18 @@ import cn from "https://esm.sh/clsx";
 
 () => {
   // All code should be here , including component definitions
-  return <>Hello World</>;
+  return (
+    <>
+      Hello World
+      <style jsx global>
+        {\`
+          body {
+            font-family: "Hack";
+          }
+        \`}
+      </style>
+    </>
+  );
 };
+
 `;
