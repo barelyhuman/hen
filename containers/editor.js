@@ -6,19 +6,23 @@ import debounce from "lodash.debounce";
 
 import { EditorToolbar } from "./editor-toolbar";
 
-// TODO: assign this once a proper code editor is added
 const highlighter = (code) => {
   return code && code.length && hljs.highlightAuto(code, ["js"]).value;
 };
 
-// TODO: replace with a proper text editor / code editor
-export const Editor = ({ defaultValue, onChange, ...props }) => {
+export const Editor = ({ defaultValue, value, onChange, ...props }) => {
   const [code, setCode] = useState(defaultValue || "");
 
+  //  un-needed control but breaks due to an issue with codejar, so left as is for now
   const handleChange = (code) => {
     setCode(code);
     onChange && onChange(code);
   };
+
+  //  un-needed control but breaks due to an issue with codejar, so left as is for now
+  useEffect(() => {
+    setCode(value);
+  }, [value]);
 
   return (
     <>
