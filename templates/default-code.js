@@ -1,7 +1,6 @@
-export default `// You can import modules from esm and use them accordingly
+export default `// You can import modules from esm or skypack and use them accordingly
 import cn from "https://esm.sh/clsx";
-import { If } from "https://esm.sh/react-extras";
-import { format } from "https://esm.sh/@barelyhuman/date-utils";
+import {Spacery} from "https://cdn.skypack.dev/spacery";
 
 () => {
   // All code should be here , including component definitions
@@ -116,19 +115,6 @@ import { format } from "https://esm.sh/@barelyhuman/date-utils";
     );
   }
 
-  const Spacer = ({ x, y, ...props }) => {
-    return (
-      <div
-        style={{
-          marginTop: y || 0,
-          marginBottom: y || 0,
-          marginLeft: x || 0,
-          marginRight: x || 0,
-        }}
-      ></div>
-    );
-  };
-
   const Input = (props) => {
     return (
       <>
@@ -160,13 +146,18 @@ import { format } from "https://esm.sh/@barelyhuman/date-utils";
 
   return (
     <>
-      <Input placeholder="Password Input" type="password" />
-      <Spacer y={16} x={8} />
+      <Spacery marginY-16 marginX-8>
+        <Input placeholder="Password Input" type="password" />
+      </Spacery>
+      <Spacery marginY-16 marginX-8>
       <Input placeholder="Text Input" />
-      <Spacer y={16} x={8} />
+      </Spacery>
+      <Spacery marginY-16 marginX-8>
       <Toggle />
-      <Spacer y={16} x={8} />
+      </Spacery>
+      <Spacery marginY-16 marginX-8>
       <Toggle accented />
+      </Spacery>
       <style jsx global>{\`
         :root {
           --accent: red;
