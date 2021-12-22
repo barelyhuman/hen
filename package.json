@@ -14,6 +14,7 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/standalone": "^7.14.7",
     "acorn": "^8.4.1",
+    "babel-plugin-mutable-react-state": "^0.0.1",
     "babel-plugin-transform-react-createelement-to-jsx": "^1.1.0",
     "clsx": "^1.1.1",
     "codejar": "^3.5.0",

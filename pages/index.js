@@ -8,12 +8,23 @@ import debounce from "lodash.debounce";
 import Header from "containers/header";
 
 const CODE_STORAGE_TOKEN = Symbol("hen-code").toString();
+const CODE_TEMP_STORAGE = Symbol("hen-code-temp").toString();
+let fromURL = false;
 
 const getDefaultCode = () => {
   if (typeof window !== "object") {
     return;
   }
-  const code = localStorage.getItem(CODE_STORAGE_TOKEN);
+
+  const fromUrl = window.location.search;
+  const searchParams = new URLSearchParams(fromUrl);
+  const codeFromURL = searchParams.get("code");
+  let code = localStorage.getItem(CODE_STORAGE_TOKEN);
+  if (codeFromURL && codeFromURL.length) {
+    fromURL = true;
+    code = Buffer.from(codeFromURL, "base64").toString();
+  }
+
   if (code && code.length) {
     return code;
   }
@@ -41,7 +52,8 @@ export default function Home() {
     } catch (err) {
       // ignore
     }
-    localStorage.setItem(CODE_STORAGE_TOKEN, _code);
+    const storageToken = !fromURL ? CODE_STORAGE_TOKEN : CODE_TEMP_STORAGE;
+    localStorage.setItem(storageToken, _code);
     setCode(_code);
   };
 
