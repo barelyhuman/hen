@@ -6,6 +6,9 @@ import { Spacer } from "components/spacer";
 import exampleCode from "templates/default-code";
 import emptyCode from "templates/empty-code";
 import { useRouter } from "next/router";
+import { copy } from "lib/copy";
+import Toastify from "toastify-js";
+import { successToast } from "lib/toast";
 
 export function EditorToolbar({ code, onChange, ...props }) {
   const router = useRouter();
@@ -32,11 +35,18 @@ export function EditorToolbar({ code, onChange, ...props }) {
 
   async function shareCode() {
     const encodedCode = Buffer.from(String(code)).toString("base64");
+
     router.push("/", {
       query: {
         code: encodedCode,
       },
     });
+
+    setTimeout(() => {
+      const url = window.location.toString();
+      copy(url);
+      successToast("Copied URL");
+    }, 500);
   }
 
   const debouncedFormat = debounce(format, 500);

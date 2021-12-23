@@ -28,7 +28,8 @@
     "prettier": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-simple-code-editor": "^0.11.0"
+    "react-simple-code-editor": "^0.11.0",
+    "toastify-js": "^1.11.2"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.3",
