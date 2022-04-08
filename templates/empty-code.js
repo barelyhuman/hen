@@ -6,13 +6,6 @@ import cn from "https://esm.sh/clsx";
   return (
     <>
       Hello World
-      <style jsx global>
-        {\`
-          body {
-            font-family: "Hack";
-          }
-        \`}
-      </style>
     </>
   );
 };

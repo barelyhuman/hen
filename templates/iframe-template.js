@@ -12,10 +12,8 @@ export const iframeTemplateCode = (imports, snippet) => `
     <div id="root"></div>
     <script type="module">
 
-
-    import React from 'https://esm.sh/react';
-    import {render} from 'https://esm.sh/react-dom';
-
+      import * as React from "https://esm.sh/react";
+      import { render } from "https://esm.sh/react-dom";
 
       ${imports}
 
